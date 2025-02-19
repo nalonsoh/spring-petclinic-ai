@@ -17,3 +17,4 @@ springboot-petclinic-server/
 
 # Mac OS X indexing
 .DS_Store
+/.factorypath
