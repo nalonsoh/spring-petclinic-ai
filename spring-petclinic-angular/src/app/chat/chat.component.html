@@ -1,0 +1,24 @@
+<div class="chatbox minimized" id="chatbox">
+  <div class="chatbox-header" (click)="toggleChatbox()">
+      Chat with Spring AI!
+  </div>
+  <div class="chatbox-content" id="chatbox-content">
+      <div class="chatbox-messages" id="chatbox-messages">
+          <!-- Chat messages will be dynamically inserted here -->
+      </div>
+      <div class="chatbox-footer">
+          <textarea type="text" id="chatbox-input" placeholder="Type a message..." (keypress)="keyPress($event)"></textarea>
+          <button (click)="sendMessage()">Send</button>
+          <div style="padding-top: 5px;">Memory: <input type="checkbox" id="useMemory-check" checked/></div>
+          <div style="padding-top: 5px; margin-right: 100px;">Send on Enter: <input type="checkbox" id="sendOnEnter-check" checked/></div>
+          <div style="padding-top: 5px;">Mode: 
+            <select type="checkbox" id="mode-selector" checked>
+                <option value="generic-chat" selected>Generic chat</option>
+                <option value="app-control">APP control</option>
+                <option value="api-info">API info</option>
+            </select>
+          </div>
+          <button (click)="cleanChat()" style="margin-left: 120px; margin-top: -10px;">Clean</button>
+      </div>
+    </div>
+</div>

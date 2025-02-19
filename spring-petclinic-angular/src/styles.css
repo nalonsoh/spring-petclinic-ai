@@ -20,3 +20,40 @@
 @import url('./assets/css/petclinic.css');
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
+/* CHATBOT */
+
+  /* Chat bubbles styling */
+  .chat-bubble {
+    max-width: 80%;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    word-wrap: break-word;
+    font-size: 14px;
+  }
+  
+  /* Ensure bold and italic styles are handled */
+  .chat-bubble strong {
+    font-weight: bold;
+  }
+  
+  .chat-bubble em {
+    font-style: italic;
+  }
+  
+  .chat-bubble.user {
+    background-color: #dcf8c6; /* WhatsApp-style light green */
+    margin-left: auto;
+    text-align: right;
+    border-bottom-right-radius: 0;
+  }
+  
+  .chat-bubble.bot {
+    background-color: #ffffff;
+    margin-right: auto;
+    text-align: left;
+    border-bottom-left-radius: 0;
+    border: 1px solid #e1e1e1;
+  }
+
