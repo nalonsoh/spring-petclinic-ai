@@ -20,7 +20,7 @@ class StoreLoader {
 
 	public StoreLoader(@Value("classpath:openapi.yml") Resource jsonApiResource, @Qualifier("vectorStoreAPI") VectorStore vectorStoreAPI) throws IOException {
 		super();
-		this.loadAPIStore(jsonApiResource, vectorStoreAPI);
+		//this.loadAPIStore(jsonApiResource, vectorStoreAPI);
 	}
 
 	private void loadAPIStore(Resource jsonApiResource, VectorStore vectorStoreAPI) throws IOException {
