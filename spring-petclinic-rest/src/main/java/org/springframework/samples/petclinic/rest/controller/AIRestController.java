@@ -11,7 +11,6 @@ import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +35,7 @@ public class AIRestController {
 	public AIRestController(
 			ChatClient chatClient,
 			ChatMemory chatMemory,
-			@Qualifier("vectorStoreAPI") VectorStore vectorStoreAPI,
+			VectorStore vectorStoreAPI,
 			String[] functionNames,
 			AiConfigProperties properties) {
 		
