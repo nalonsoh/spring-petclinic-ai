@@ -7,7 +7,11 @@ import org.springframework.ai.chat.client.ChatClient.ChatClientRequestSpec;
 import org.springframework.ai.chat.client.DefaultChatClient.DefaultChatClientRequestSpec;
 import org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.vectorstore.SearchRequest;
+import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,11 +25,17 @@ public class AIRestController {
 	
 	private ChatClient chatClient;
 	private ChatMemory chatMemory;
+	private VectorStore vectorStoreAPI;
 	
-	public AIRestController(ChatClient chatClient, ChatMemory chatMemory) {
+	public AIRestController(
+			ChatClient chatClient,
+			ChatMemory chatMemory,
+			@Qualifier("vectorStoreAPI") VectorStore vectorStoreAPI) {
+		
 		super();
 		this.chatClient = chatClient;
 		this.chatMemory = chatMemory;
+		this.vectorStoreAPI = vectorStoreAPI;
 	}
 
 	@GetMapping("/chat")
@@ -49,10 +59,16 @@ public class AIRestController {
 			chatClientRequestSpec.getAdvisorParams().put(AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY, aiRequest.cid());
 		}
 		
+		
+		if ("api-info".equalsIgnoreCase(aiRequest.mode())) {
+			chatClientRequestSpec = (DefaultChatClientRequestSpec) chatClientRequestSpec
+					.advisors(new QuestionAnswerAdvisor(this.vectorStoreAPI, SearchRequest.defaults()));
+		}
+		
 		return Map.of(
 				"completion", chatClientRequestSpec.call().content());
 	}
 
 }
 
-record AIRequest (String message, String useChatMemory, String cid) {}
+record AIRequest (String message, String useChatMemory, String cid, String mode) {}

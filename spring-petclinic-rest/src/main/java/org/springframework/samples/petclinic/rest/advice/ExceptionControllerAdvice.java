@@ -16,7 +16,9 @@
 
 package org.springframework.samples.petclinic.rest.advice;
 
-import jakarta.servlet.http.HttpServletRequest;
+import java.net.URI;
+import java.time.Instant;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -28,10 +30,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.net.URI;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Global Exception handler for REST controllers.
@@ -42,6 +42,7 @@ import java.time.format.DateTimeFormatter;
  * @author Alexander Dudkin
  */
 @ControllerAdvice
+@Slf4j
 public class ExceptionControllerAdvice {
 
     /**
@@ -71,6 +72,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity<ProblemDetail> handleGeneralException(Exception e, HttpServletRequest request) {
+    	log.error("GeneralException", e);
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         ProblemDetail detail = this.detailBuild(e, status, request.getRequestURL());
         return ResponseEntity.status(status).body(detail);
