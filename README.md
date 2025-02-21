@@ -44,3 +44,12 @@ spring.ai:
       enabled: true
       options.model: text-embedding-3-small
 ```
+
+Dependencia para arreglar swagger-ui
+```
+       <dependency>
+		    <groupId>io.swagger.core.v3</groupId>
+		    <artifactId>swagger-annotations</artifactId>
+		    <version>2.2.16</version>
+		</dependency>
+```
