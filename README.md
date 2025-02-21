@@ -34,3 +34,13 @@
 		</dependencies>
 	</dependencyManagement>
 ```
+properties:
+```
+spring.ai:
+  openai:
+    api-key: ${OPENAI_API_KEY}
+    chat.options.model: gpt-4o-mini
+    embedding:
+      enabled: true
+      options.model: text-embedding-3-small
+```
