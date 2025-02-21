@@ -1,3 +1,4 @@
+```
 <!-- Spring AI -->
 <spring-ai.version>1.0.0-M2</spring-ai.version>
 
@@ -32,3 +33,4 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+```
