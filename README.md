@@ -53,3 +53,40 @@ Dependencia para arreglar swagger-ui
 		    <version>2.2.16</version>
 		</dependency>
 ```
+Controlador:
+```
+package org.springframework.samples.petclinic.rest.controller;
+
+import java.util.Map;
+
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/ai")
+public class AIRestController {
+	
+	private ChatClient chatClient;
+	
+	public AIRestController(ChatClient chatClient) {
+		super();
+		this.chatClient = chatClient;
+	}
+
+
+	@GetMapping("/chat")
+	public Map<String, String> chatCompletion(@RequestParam String message) {
+		String chatResponse = this.chatClient.prompt()
+		    .user(message)
+		    .call()
+		    .content();
+		
+		return Map.of("completion", chatResponse);
+	}
+}
+
+```
